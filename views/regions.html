@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+	<div class="well">
+		<form method="POST" action="/regions">
+			<div class="form-group">
+				<input class="form-control" placeholder="add zip code" name="zipcode"/>
+			</div>
+			<button type="submit" class="btn btn-primary">Add ZipCode</button>
+		</form>
+	</div>
+
+	{% for region in regions %}
+	<div class="panel-default">
+		<div class="panel-heading">
+			{{ region.zipCode }}
+		<!-- 	<form style="display:inline" method="POST" action="/salesPersonRegions/0/{{ region.id }}?_method=DELETE"\>
+				<button class="btn btn-danger pull-right">Delete</button>
+			</form> -->
+			<br clear="all">
+		</div>
+
+		<div class="panel-body">
+			<ul class="list-group">
+			{% for salesPerson in salesPeople %}
+			{% if matched(arraySPR, salesPerson.id, region.id) %}
+				<li class="list-group-item list-group-item-success">
+					{{ salesPerson.name }}
+				<form style="display:inline" method="POST" action="/salesPersonRegions/{{salesPerson.id}}/{{region.id}}?_method=DELETE">
+				<button type="submit" name="name" value="/regions" class="btn btn-danger pull-right">Delete</button>
+				<br clear="all">				
+				</form>
+
+			{% else %}
+
+				<li class="list-group-item">
+					{{ salesPerson.name }}
+				<form style="display:inline" method="POST" action="/salesPersonRegions/{{salesPerson.id}}/{{region.id}}">
+				<button type="submit" name="name" value="/regions" class="btn btn-danger pull-right">Add</button>
+				<br clear="all">
+				</form>
+			{% endif %}
+			
+			</ul>
+			{% endfor %}
+
+		</div>
+	</div>
+
+
+
+	{% endfor %}
+
+
+</div>	
+
+
+
+{% endblock %}
