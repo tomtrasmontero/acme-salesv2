@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "CONN=postgres://localhost/acme_salesv2 node server.js",
+    "start": "CONN=postgres://localhost/acme_salesv2 node server",
     "start:dev": "DATABASE_URL=postgres://localhost/acme_salesv2 PORT=3000 nodemon -e html,js server.js"
   },
   "author": "",
