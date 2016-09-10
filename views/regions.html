@@ -24,10 +24,12 @@
 		<div class="panel-body">
 			<ul class="list-group">
 			{% for salesPerson in salesPeople %}
-			{% if matched(arraySPR, salesPerson.id, region.id) %}
+      {{ region.hasSalesPerson(salesPerson.id) }}
+      TODO: add an instance to method to regions
+			{% if region.hasSalesPerson(salesPersonId) %}
 				<li class="list-group-item list-group-item-success">
 					{{ salesPerson.name }}
-					<form style="display:inline" method="POST" action="/salesPersonRegions/{{salesPerson.id}}/{{region.id}}?_method=DELETE">
+					<form style="display:inline" method="POST" action="/salesPersonRegions/{{salesPerson.id}}/{{region.id}}?_method=DELETE&backTo=/regions">
 					<button type="submit" name="name" value="/regions" class="btn btn-danger pull-right">Delete</button>
 					<br clear="all">				
 					</form>
@@ -36,7 +38,7 @@
 
 				<li class="list-group-item">
 					{{ salesPerson.name }}
-					<form style="display:inline" method="POST" action="/salesPersonRegions/{{salesPerson.id}}/{{region.id}}">
+					<form style="display:inline" method="POST" action="/salesPersonRegions/{{salesPerson.id}}/{{region.id}}?backTo=/regions">
 					<button type="submit" name="name" value="/regions" class="btn btn-danger pull-right">Add</button>
 					<br clear="all">
 					</form>

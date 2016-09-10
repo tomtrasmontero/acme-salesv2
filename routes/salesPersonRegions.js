@@ -1,28 +1,28 @@
 const router = require('express').Router();
 module.exports = router;
 const models = require('../db').models;
-const Regions = models.Region;
-const SalesPerson = models.SalesPerson;
 const SalesPersonRegion = models.SalesPersonRegion; 
-const Promise = require("bluebird");
 
-router.post('/:salesId/:regionId',function(req,res,next){
-	models.SalesPersonRegion.addSalesPersonRegion(req.params.salesId,req.params.regionId)
+router.post('/:salesPersonId/:regionId',function(req, res, next){
+	SalesPersonRegion.create({
+    salesPersonId: req.params.salesPersonId,
+    regionId: req.params.regionId})
 	.then(function(){
-		res.redirect(req.body.name);
+		res.redirect(req.query.backTo);//add this
 	})
 	.catch(next);
 });
 
-router.delete('/:salesId/:regionId', function(req,res,next){
-	SalesPersonRegion.remove(req.params.salesId, req.params.regionId)
+router.delete('/:salesPersonId/:regionId', function(req, res, next){
+	SalesPersonRegion.destroy({
+      where: {
+        salesPersonId: req.params.salesPersonId,
+        regionId: req.params.regionId
+      }
+  })
 	.then(function(){
-		res.redirect(req.body.name); 
+		res.redirect(req.query.backTo);//add this
 	})
 	.catch(next);
-})
-
-
-router.use(function(err,req,res,next){
-	console.log(err, err.stack);
 });
+
